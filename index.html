@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TechNerd4U</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<header class="head">
+    <div>
+        <img src="images/logo.png" alt="TechNerd4U logo" class="logo">
+        <div class="text-center">
+            <h1>TechNerd4U</h1>
+            <p><i>-A tech nerd at your fingertips</i></p>
+        </div>
+    </div>
+    <div class="text-right">
+        <button type="button" onclick="jump('services')" class="buttons">Services</button>
+        <button type="button" onclick="jump('about')" class="buttons">About Us</button>
+        <button type="button" onclick="jump('contactus')" class="buttons">Contact Us</button>
+    </div>
+</header>
+
+<section class="container mt-5" id="services">
+    <div class="text-center">
+        <h2>Services Offered</h2>
+        <div class="row" id="servicesList"></div>
+    </div>
+</section>
+
+<section class="container mt-5" id="about">
+    <div class="text-center">
+        <h2>About TechNerd4U</h2>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="mission">
+                <p>TechNerd4U aims to be your trusted tech support store and to make your journey with technology as easy as possible by connecting you with one of our qualified individuals. Through the help of our nerds, we will satisfy your technology needs as quickly and painlessly as possible</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-5">
+    <div class="text-center">
+        <h2>Meet the Nerds</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="nerds">
+                <img src="images/napoleon.jpg" alt="NapoleonDynamite">
+                <h5>Napoleon</h5>
+                <h6><i>"Girls only want boyfriends who have great skills!"</i></h6>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="nerds">
+                <img src="images/steve.jpg" alt="SteveErkale">
+                <h5>Steve</h5>
+                <h6><i>"I've got enough processing power in my head to figure this out"</i></h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-5">
+    <div class="text-center">
+        <h2>Schedule an Appointment!</h2>
+    </div>
+    <ul class="bullet">
+        <li>Visit the store or mail us your item(s): 123 Nerd Ln, Reading PA 19610</li>
+        <li>Call the nerds: (610) 123-4567</li>
+    </ul>
+</section>
+
+<section class="container mt-5" id="contactus">
+    <div class="text-center">
+        <h2>Questions? Consult a Nerd</h2>
+    </div>
+    <form method="post">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name:</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone:</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment:</label>
+            <textarea class="form-control" id="comment" name="comment" placeholder="Enter Custom Request"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="confirmation()">Submit</button>
+    </form>
+<section>
+    <footer>
+        <div class="addr text-center" id="addr">
+        <p>Store Address: 123 Nerd Ln, Reading PA 19610</p>
+            <p>Call us: (610) 123-4567</p>
+        </div>
+    </footer>
+</section>
+
+<script>
+    $.ajax({
+        url: "services.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            displayServices(data.services);
+        },
+    });
+
+    function displayServices(services) {
+        let servicesList = $('#servicesList');
+
+        services.forEach(service => {
+            let serviceCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas ${service.icon}"></i> ${service.name}</h5>
+                                <p class="card-text">Price: ${service.price}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            servicesList.append(serviceCard);
+        });
+    }
+
+    function confirmation() {
+        alert("Thank you, a nerd will respond soon!")
+    }
+
+    function jump(id){
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView()
+        }
+    }
+</script>
+
+</body>
+
+</html>
